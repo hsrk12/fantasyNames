@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI FPL Names</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <h2>AI FANTASY NAME GENERATOR</h2>
+    <form id="sportsForm" action="/teamNames" method="POST">
+    <label for="sportsDropDown">Choose a sport:</label>
+    <select id="sportsDropDown" name="selectedSport">
+      <option value="soccer">Soccer</option>
+      <option value="nba">NBA</option>
+      <option value="nfl">NFL</option>
+    </select>
+    <button type="button" id="submitButton">Submit</button>
+</form>
+<ul id="printNames"></ul>
+<script src="script.js"></script>
+</body>
+</html>
