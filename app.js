@@ -4,9 +4,22 @@ const app = express();
 const port = 3000;
 app.use(express.static(__dirname)); 
 const OpenAI = require("openai");
+const { create } = require('domain');
+const { error } = require('console');
 require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+const sqlite = require('sqlite3').verbose();
+let db = new sqlite.Database('activity.db', sqlite.OPEN_READWRITE, (err) => {
+    if(err){
+        return console.log(err.message);    
+    }
+    console.log('Connected to the in-memory SQlite database.');
+});
+
+// const createTable = 'CREATE TABLE Activity(ID INTEGER PRIMARY KEY, Sport STRING, GPT_Response)';
+// db.run(createTable);
 
 
 app.listen(port, () => {
@@ -15,8 +28,6 @@ app.listen(port, () => {
 
   var prompt = "";
   app.post('/teamNames', async (req, res) => {
-    // Simulate fetching data from a database or an external API
-    //res.json(gpt response)
     const sport = req.body.selectedSport;
     console.log(sport);
     console.log(req.body.selectedSport);
@@ -24,11 +35,29 @@ app.listen(port, () => {
     var finalist =  await gptCall();
     console.log(finalist);
     res.json(finalist);
+
+    const sql = `INSERT INTO Activity(Sport, GPT_Response) VALUES (?,?)`
+    db.run(sql, [sport, finalist], function(err){
+      if(err){
+        console.log("ERROR unable to insert rows");
+      }
+    });
+
   });
 
   app.get('/', (req, res) => {
     res.sendFile(__dirname + "/index.html");
   })
+
+  app.get('/data', (req, res) => {
+    const sql = "SELECT * FROM Activity";
+    db.all(sql, [], (error, data) => {
+      console.log(data);
+    });
+    
+  })
+
+
 
   //chatGPT API Call
   const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
