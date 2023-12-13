@@ -9,6 +9,7 @@ const { error } = require('console');
 require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: 'https://main--fantasy-team-names.netlify.app/',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
