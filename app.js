@@ -9,6 +9,11 @@ const { error } = require('console');
 require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors({
+  origin: 'https://main--fantasy-team-names.netlify.app/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
 
 const sqlite = require('sqlite3').verbose();
 let db = new sqlite.Database('activity.db', sqlite.OPEN_READWRITE, (err) => {
