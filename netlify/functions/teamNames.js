@@ -1,6 +1,6 @@
 // netlify/functions/teamNames.js
 
-const { gptCall } = require('./gptCall');
+const { gptCall } = require('app.js/gptCall');
 const sqlite = require('sqlite3').verbose();
 
 exports.handler = async (event, context) => {
