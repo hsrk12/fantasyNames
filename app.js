@@ -6,6 +6,7 @@ app.use(express.static(__dirname));
 const OpenAI = require("openai");
 const { create } = require('domain');
 const { error } = require('console');
+const cors = require('cors');
 require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
