@@ -33,23 +33,23 @@ app.listen(port, () => {
   });
 
   var prompt = "";
-  app.post('/teamNames', async (req, res) => {
-    const sport = req.body.selectedSport;
-    console.log(sport);
-    console.log(req.body.selectedSport);
-    prompt = "You are a sports fanatic. Come up with 25 creative team names for the following sport using clever puns, team/player/coach names: " + sport + ". ensure that your output is formatted as a javascript array" ;
-    var finalist =  await gptCall();
-    console.log(finalist);
-    res.json(finalist);
+  // app.post('/teamNames', async (req, res) => {
+  //   const sport = req.body.selectedSport;
+  //   console.log(sport);
+  //   console.log(req.body.selectedSport);
+  //   prompt = "You are a sports fanatic. Come up with 25 creative team names for the following sport using clever puns, team/player/coach names. Atleast half the names must use player/team/coach names: " + sport + ". ensure that your output is formatted as a javascript array" ;
+  //   var finalist =  await gptCall();
+  //   console.log(finalist);
+  //   res.json(finalist);
 
-    const sql = `INSERT INTO Activity(Sport, GPT_Response) VALUES (?,?)`
-    db.run(sql, [sport, finalist], function(err){
-      if(err){
-        console.log("ERROR unable to insert rows");
-      }
-    });
+  //   const sql = `INSERT INTO Activity(Sport, GPT_Response) VALUES (?,?)`
+  //   db.run(sql, [sport, finalist], function(err){
+  //     if(err){
+  //       console.log("ERROR unable to insert rows");
+  //     }
+  //   });
 
-  });
+  // });
 
   app.get('/', (req, res) => {
     res.sendFile(__dirname + "/index.html");
