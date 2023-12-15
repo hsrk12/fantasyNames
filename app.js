@@ -77,3 +77,5 @@ app.listen(port, () => {
   //console.log(completion.choices[0]?.message?.content);
   return completion.choices[0]?.message?.content;
 }
+
+module.exports.gptCall = gptCall;
